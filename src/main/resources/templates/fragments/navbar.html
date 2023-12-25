@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+<nav th:fragment="navBar" class="navbar navbar-expand-md  sticky-top">
+  <div class="container">
+    <!--    <a th:href="@{/}" class="navbar-brand"> <i class="fas fa-book-open me-2"></i>BookStore</a>-->
+    <a th:href="@{/}" class="navbar-brand"><i class="fas fa-home me-2"></i>BookStore</a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#myNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="myNav" class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="" class="nav-link">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a th:href="@{/login}" class="nav-link">Admin</a>
+        </li>
+        <li class="nav-item me-3">
+          <a th:href="@{/view-cart}" style="text-decoration: none !important;"><i
+                  class="fas fa-cart-arrow-down  ms-3 mt-2 me-2"></i>
+            <span class="h3" th:text="${cartSize}"></span></a>
+        </li>
+      </ul>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+      <a class="text-muted nav-link me-2 d-inline-block" style="text-decoration: none" th:text="${''+ #authentication.getName()}" ></a>
+      <a href="javascript:document.logoutForm.submit()"  style="text-decoration: none">Logout</a>
+      <form th:action="@{/logout}" method="post" name="logoutForm" th:hidden="true">
+        <input type="submit" value="submit" hidden="true">
+      </form>
+    </div>
+  </div>
+</nav>
+</body>
+</html>
